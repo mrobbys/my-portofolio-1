@@ -1,0 +1,44 @@
+/* Slide-in from left effect */
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-from-left {
+    animation: slideInLeft 1.2s ease-out forwards;
+}
+
+/* Fade-in effect */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Glow effect for text */
+.glow-text {
+    text-shadow: 0px 0px 12px rgba(255, 255, 0, 0.8);
+}
+
+/* Glow effect for button */
+.glow-btn {
+    box-shadow: 0px 0px 20px rgba(128, 0, 128, 0.8);
+}
+
+/* Delay for fade-in elements */
+.fade-in.delay-1s {
+    animation-delay: 1s;
+}

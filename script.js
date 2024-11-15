@@ -1,3 +1,12 @@
+const menuBtn = document.getElementById('menu-btn');
+const mobileNavbar = document.getElementById('mobile-navbar');
+
+menuBtn.addEventListener('click', () => {
+    mobileNavbar.classList.toggle('hidden');
+
+    const isExpanded = menuBtn.getAttribute('aria-expanded') === 'true';
+    menuBtn.setAttribute('aria-expanded', !isExpanded);
+});
 
 const messageForm = document.getElementById('messageForm');
 messageForm.addEventListener('submit',async (e)=>{
@@ -48,4 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     changeLinkState();
     window.addEventListener("scroll", changeLinkState);
 });
+
+
+
 

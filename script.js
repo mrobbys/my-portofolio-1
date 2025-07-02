@@ -8,33 +8,44 @@ menuBtn.addEventListener('click', () => {
     menuBtn.setAttribute('aria-expanded', !isExpanded);
 });
 
-const messageForm = document.getElementById('messageForm');
-messageForm.addEventListener('submit',async (e)=>{
+// Initialize EmailJS
+(function() {
+    emailjs.init("bGGc_Ns2RTIfPIDAO"); // Your public key
+})();
+
+// Handle form submission
+document.getElementById('messageForm').addEventListener('submit', function(e) {
     e.preventDefault();
-        const name= document.getElementById('name').value
-        const email= document.getElementById('email').value
-        const phoneNo= document.getElementById('phoneNo').value
-        const subject= document.getElementById('subject').value
-        const message= document.getElementById('message').value
-    const object = {
-        method: 'POST',
-        body: JSON.stringify({name,email,phoneNo,subject,message}),
-    };
-    try{
-        const response = await fetch('https://api.sujal.info/portfolio/contact',object);
-        const data = await response.json();
-        if(data.success){
-            alert('Message Sent Successfully');
-            messageForm.reset();
-        }
-        else{
-            alert('Something went wrong');
-        }
-    }
-    catch(error){
-        alert('Error: ' + error.message);
-    }
+    
+    // Show sending status
+    const button = this.querySelector('button');
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Sending...';
+    
+    emailjs.sendForm('service_yowrqeg', 'template_spgufae', this)
+        .then(function() {
+            const notifSuccess = document.getElementById('notif-success');
+            notifSuccess.classList.remove('hidden');
+            button.textContent = 'Message Sent!';
+            document.getElementById('messageForm').reset();
+             setTimeout(() => {
+                notifSuccess.classList.add('hidden');
+                button.textContent = originalText;
+                button.disabled = false; // Aktifkan kembali tombol
+            }, 3000);
+        }, function(error) {
+            button.textContent = 'Failed to send';
+            console.log('FAILED...', error);
+            // Kembalikan teks tombol dan aktifkan kembali jika gagal
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.disabled = false; 
+            }, 5000);
+        });
 });
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const navLinks = document.querySelectorAll(".nav-link");
